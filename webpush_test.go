@@ -1,6 +1,7 @@
 package webpush
 
 import (
+	"context"
 	"net/http"
 	"testing"
 )
@@ -32,7 +33,8 @@ func getStandardEncodedTestSubscription() *Subscription {
 }
 
 func TestSendNotificationToURLEncodedSubscription(t *testing.T) {
-	resp, err := SendNotification([]byte("Test"), getURLEncodedTestSubscription(), &Options{
+	ctx := context.Background()
+	resp, err := SendNotification(ctx, []byte("Test"), getURLEncodedTestSubscription(), &Options{
 		HTTPClient:      &testHTTPClient{},
 		RecordSize:      3070,
 		Subscriber:      "<EMAIL@EXAMPLE.COM>",
@@ -56,7 +58,8 @@ func TestSendNotificationToURLEncodedSubscription(t *testing.T) {
 }
 
 func TestSendNotificationToStandardEncodedSubscription(t *testing.T) {
-	resp, err := SendNotification([]byte("Test"), getStandardEncodedTestSubscription(), &Options{
+	ctx := context.Background()
+	resp, err := SendNotification(ctx, []byte("Test"), getStandardEncodedTestSubscription(), &Options{
 		HTTPClient:      &testHTTPClient{},
 		Subscriber:      "<EMAIL@EXAMPLE.COM>",
 		Topic:           "test_topic",
